@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>When Sound and Vision Move Out of Step</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #faf8fc;
+      color: #443653;
+      line-height: 1.6;
+    }
+
+    /* =============================
+       HEADER
+       ============================= */
+
+    header {
+      background: linear-gradient(120deg, #443653, #8E7D9F);
+      color: white;
+      padding: 55px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      margin: 0 0 12px;
+    }
+
+    header p {
+      font-size: 18px;
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    /* =============================
+       MAIN CONTENT
+       ============================= */
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 35px 20px 60px;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    /* =============================
+       INSTRUCTIONS
+       ============================= */
+
+    .instructions {
+      background: #eee8f5;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .instructions p {
+      margin: 6px 0;
+    }
+
+    .instructions .listening-question {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    /* =============================
+       SCENE TITLES WITH GIFS
+       ============================= */
+
+    .scene-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 14px;
+
+      width: 100%;
+      margin: 0 0 22px;
+      text-align: left;
+    }
+
+    .scene-title-text {
+      min-width: 0;
+    }
+
+    .scene-gif {
+      display: block;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    /* =============================
+       VIDEO GRID
+       ============================= */
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin: 22px 0 45px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 3px 18px rgba(68, 54, 83, 0.09);
+      min-width: 0;
+    }
+
+    .video-card h3 {
+      text-align: center;
+      margin: 4px 0 12px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      background: black;
+    }
+
+    /* =============================
+       REVEAL SECTION
+       ============================= */
+
+    .reveal-section {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      background: #443653;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #665078;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #8E7D9F;
+      outline-offset: 3px;
+    }
+
+    /* Blinking star */
+
+    .sparkle {
+      display: inline-block;
+      margin-right: 6px;
+      animation: sparkleBlink 1.2s ease-in-out infinite;
+    }
+
+    @keyframes sparkleBlink {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.15;
+        transform: scale(0.8);
+      }
+    }
+
+    /* Answer box */
+
+    #answer {
+      display: none;
+
+      margin: 18px auto 0;
+      max-width: 900px;
+      width: 100%;
+
+      background: #eee8f5;
+      padding: 24px 30px;
+      border-radius: 12px;
+    }
+
+    #answer h2 {
+      margin-top: 0;
+    }
+
+    #answer p {
+      font-size: 17px;
+    }
+
+    /* =============================
+       FOOTER
+       ============================= */
+
+    footer {
+      text-align: center;
+      color: #786d82;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    /* =============================
+       MOBILE LAYOUT
+       ============================= */
+
+    @media (max-width: 650px) {
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 40px 20px;
+      }
+
+      .scene-title {
+        font-size: 21px;
+        gap: 10px;
+      }
+
+      .scene-gif {
+        width: 52px;
+        height: 52px;
+      }
+
+      #answer {
+        padding: 20px;
+      }
+
+      #answer p {
+        font-size: 16px;
+      }
+    }
+
+    /* Reduced-motion accessibility */
+
+    @media (prefers-reduced-motion: reduce) {
+      .sparkle {
+        animation: none;
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- =============================
+       HEADER
+       ============================= -->
+
+  <header>
+    <h1>When Sound and Vision Move Out of Step</h1>
+    <p>Explore Audiovisual Motion Onset Asynchrony</p>
+  </header>
+
+  <main>
+
+    <!-- =============================
+         INSTRUCTIONS
+         ============================= -->
+
+    <div class="instructions">
+
+      <h2>🎧 Put on Your Headphones</h2>
+
+      <p class="listening-question">
+        Can you hear the difference?
+      </p>
+
+      <p>
+        <strong>Tip:</strong>
+        Pay attention to when the sound starts moving
+        from one side to the other.
+      </p>
+
+    </div>
+
+
+    <!-- =============================
+         PENGUIN SCENE
+         ============================= -->
+
+    <section>
+
+      <h2 class="scene-title">
+
+        <!-- Happy Strutting Penguin GIF -->
+
+        <img
+          class="scene-gif"
+          src="https://static.wixstatic.com/media/61696e_b2778f4358ba41dd864f8b1b76e1c59a~mv2.gif"
+          alt=""
+        >
+
+        <span class="scene-title-text">
+          Penguin's Christmas Shopping Dash
+        </span>
+
+      </h2>
+
+
+      <div class="video-grid">
+
+        <!-- Penguin Version A -->
+
+        <div class="video-card">
+
+          <h3>Version A</h3>
+
+          <video controls playsinline preload="metadata">
+
+            <source
+              src="videos/penguin_v3_LtoR_sync.mp4"
+              type="video/mp4"
+            >
+
+            Your browser does not support video playback.
+
+          </video>
+
+        </div>
+
+
+        <!-- Penguin Version B -->
+
+        <div class="video-card">
+
+          <h3>Version B</h3>
+
+          <video controls playsinline preload="metadata">
+
+            <source
+              src="videos/penguin_v3_RtoL_7s.mp4"
+              type="video/mp4"
+            >
+
+            Your browser does not support video playback.
+
+          </video>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =============================
+         ROBOT SCENE
+         ============================= -->
+
+    <section>
+
+      <h2 class="scene-title">
+
+        <!-- Cute Purple Running Robot GIF -->
+
+        <img
+          class="scene-gif"
+          src="https://assets-v2.lottiefiles.com/a/61ab5514-981a-11ee-b814-af9bab53c734/4dYJvTsCif.gif"
+          alt=""
+        >
+
+        <span class="scene-title-text">
+          Robot Rush Hour
+        </span>
+
+      </h2>
+
+
+      <div class="video-grid">
+
+        <!-- Robot Version A -->
+
+        <div class="video-card">
+
+          <h3>Version A</h3>
+
+          <video controls playsinline preload="metadata">
+
+            <source
+              src="videos/roomba_v3_RtoL_sync.mp4"
+              type="video/mp4"
+            >
+
+            Your browser does not support video playback.
+
+          </video>
+
+        </div>
+
+
+        <!-- Robot Version B -->
+
+        <div class="video-card">
+
+          <h3>Version B</h3>
+
+          <video controls playsinline preload="metadata">
+
+            <source
+              src="videos/roomba_v3_LtoR_7s.mp4"
+              type="video/mp4"
+            >
+
+            Your browser does not support video playback.
+
+          </video>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =============================
+         REVEAL THE DIFFERENCE
+         ============================= -->
+
+    <div class="reveal-section">
+
+      <button
+        id="revealButton"
+        type="button"
+        onclick="revealAnswer()"
+        aria-controls="answer"
+        aria-expanded="false"
+      >
+
+        <span class="sparkle" aria-hidden="true">✨</span>
+        Reveal the Difference
+
+      </button>
+
+
+      <div
+        id="answer"
+        role="region"
+        aria-label="The difference revealed"
+      >
+
+        <h2>It's About When the Sound Starts Moving</h2>
+
+        <p>
+          <strong>Version A:</strong>
+          The sound begins panning 
+	  <strong>at the same time</strong>
+          the penguin or Roomba starts moving.
+        </p>
+
+        <p>
+          <strong>Version B:</strong>
+          The sound begins panning
+          <strong>7 seconds after</strong>
+          the penguin or Roomba starts moving.
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =============================
+       FOOTER
+       ============================= -->
+
+  <footer>
+    Audiovisual Motion Onset Asynchrony | Estelle Song
+  </footer>
+
+
+  <!-- =============================
+       JAVASCRIPT
+       ============================= -->
+
+  <script>
+
+    // Reveal the explanation
+
+    function revealAnswer() {
+
+      const answer = document.getElementById("answer");
+      const button = document.getElementById("revealButton");
+
+      answer.style.display = "block";
+      button.setAttribute("aria-expanded", "true");
+
+    }
+
+
+    // Pause other videos when a new video starts
+
+    const videos = document.querySelectorAll("video");
+
+    videos.forEach(video => {
+
+      video.addEventListener("play", () => {
+
+        videos.forEach(other => {
+
+          if (other !== video) {
+            other.pause();
+          }
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
